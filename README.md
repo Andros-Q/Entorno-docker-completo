@@ -54,6 +54,7 @@ sudo apt-get update
 <img width="567" height="423" alt="image" src="https://github.com/user-attachments/assets/67226eed-61e0-4896-b13d-5e87378f2247" />
 
 sudo apt-get install ca-certificates curl gnupg
+<img width="600" height="368" alt="image" src="https://github.com/user-attachments/assets/9b501205-a1c2-4c57-a759-3a57e11d2752" />
 
 Código:
 
@@ -62,6 +63,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -
 o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
+<img width="884" height="159" alt="image" src="https://github.com/user-attachments/assets/cf523028-6b03-40c9-ae0b-b54dadb0bf62" />
 
 3. Añadimos el catálogo oficial de Docker a nuestro sistema
 echo
@@ -69,9 +71,11 @@ echo
 by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu
 "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" |
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+<img width="886" height="128" alt="image" src="https://github.com/user-attachments/assets/80d97e8d-e53b-4abd-bafe-f76ea8cfc1f7" />
 
 Refrescamos la lista de programas una vez más
 sudo apt-get update
+<img width="961" height="251" alt="image" src="https://github.com/user-attachments/assets/f64499b9-d75d-4408-a909-139e0eaf5285" />
 
 Código:
 
@@ -84,6 +88,8 @@ sudo usermod -aG docker $USER
 Instalamos todo el paquete de Docker y Docker Compose
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin
 docker-compose-plugin
+<img width="743" height="296" alt="image" src="https://github.com/user-attachments/assets/51886046-3568-4cef-9f9c-a9b71961db76" />
+<img width="617" height="321" alt="image" src="https://github.com/user-attachments/assets/c06431f4-8ea2-490d-9329-159e09772625" />
 
 Tomamos Docker a mano
 sudo service docker start
