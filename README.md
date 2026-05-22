@@ -1,4 +1,5 @@
-Codigo:
+Nombre Estudiante: Andres Felipe Quiceno Gil
+Codigo: 2477362
 Descripción del proyecto
 Construcción de un Entorno Docker Controlado en Windows con WSL
 ● Arquitectura del entorno
@@ -56,8 +57,6 @@ sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
 <img width="600" height="368" alt="image" src="https://github.com/user-attachments/assets/9b501205-a1c2-4c57-a759-3a57e11d2752" />
 
-Código:
-
 2. Descargamos la "firma digital" de Docker para que Ubuntu confie en ellos
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -
@@ -76,8 +75,6 @@ sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 Refrescamos la lista de programas una vez más
 sudo apt-get update
 <img width="961" height="251" alt="image" src="https://github.com/user-attachments/assets/f64499b9-d75d-4408-a909-139e0eaf5285" />
-
-Código:
 
 Creamos el grupo por si las dudas
 sudo groupadd docker
@@ -98,22 +95,24 @@ Revisamos que si prendio el Docker
 sudo service docker status
 
 Deberías ver algo como: * Docker se está ejecutando
-Código:
+
+<img width="768" height="403" alt="image" src="https://github.com/user-attachments/assets/8222f6f3-7ada-456a-9f7b-d08d0f51e036" />
 
 Creamos el grupo por si las dudas
 sudo groupadd docker
 
 Te agregamos a ese grupo ($USER es tu nombre de usuario automático)
 sudo usermod -aG docker $USER
+<img width="853" height="169" alt="image" src="https://github.com/user-attachments/assets/9aa2ac68-7c88-461e-b018-d080cb89b710" />
 
 Checamos las versiones
 docker --version
 docker componer versión
-
-Código:
+<img width="889" height="181" alt="image" src="https://github.com/user-attachments/assets/2130abab-b5dd-4888-97fa-ba7d0c0c117b" />
 
 Prueba clásica para rectificar que el entorno se descarga correctamente
 docker run hello-world
+<img width="681" height="486" alt="image" src="https://github.com/user-attachments/assets/c6ad18c0-fc6b-4610-aa72-418953d92309" />
 
  Capturas de Pantalla + Comandos Utilizados Para Montar el Docker
 Armando el proyecto: Carpetas y archivos mágicos
@@ -130,8 +129,8 @@ cd entorno-docker-completo
 Creamos unas rugitas extra para el código
 mkdir web
 mkdir api-node
-
-Código:
+<img width="776" height="246" alt="image" src="https://github.com/user-attachments/assets/99eaac20-6526-40bb-8455-910e8851ad80" />
+<img width="713" height="265" alt="image" src="https://github.com/user-attachments/assets/5eb7348d-2407-4e47-9a9e-3d9dfdd722c0" />
 
 El archivo secreto .env
 //Se crea un archivo para guardar las contraseñas del Docker a configurar y
@@ -144,9 +143,10 @@ POSTGRES_DB=MyDataBase
 PGADMIN_DEFAULT_EMAIL=admin@midominio.com
 PGADMIN_DEFAULT_PASSWORD=adminpgadmin
 
+<img width="886" height="476" alt="image" src="https://github.com/user-attachments/assets/ea32d2be-2eb4-4ea1-ba8b-0354f96778ca" />
+
 //Luego presiono CTRL + O para guardar y CTRL + X para salir.
 
-Código:
 
 El corazón del proyecto: docker-compose.yml
 //Se crea otro archivo donde va las configuraciones de los servicios que van a ir
@@ -240,7 +240,8 @@ controlador: puente
 volúmenes:
 pg_data:
 
-Código:
+<img width="886" height="461" alt="image" src="https://github.com/user-attachments/assets/5e8abbaa-d0f2-4275-af66-26b908f8307e" />
+
 
 //Se guardó la configuración correctamente en docker-compose.yml.
 Configurando cada servicio al detalle
@@ -248,11 +249,16 @@ Configurando cada servicio al detalle
 cd ~/entorno-docker-completo/web
 nano index.html
 //Configurando que va dentro de index.html
+<!DOCTYPE html>
+<html>
+<head><title>Entorno Docker</title></head>
+<body>
+    <h1>¡Hola! ¡Nginx funciona de maravilla en Docker!</h1>
+    <p>Si lees esto, hiciste todo bien.</p>
+</body>
+</html>
 
-¡Hola! ¡Nginx funciona de maravilla en Docker!
-Si lees esto, hiciste todo bien.
-
-Código:
+<img width="794" height="466" alt="image" src="https://github.com/user-attachments/assets/ef37a481-3c6d-4b3b-b65f-6113d3d63648" />
 
 Nuestra API en Node.js
 
@@ -270,20 +276,24 @@ nano package.json
 }
 }
 
-Código:
+<img width="886" height="486" alt="image" src="https://github.com/user-attachments/assets/25c1ebe0-7226-44db-80ef-18a120acedcd" />
 
 Ahora el código index.js:
 //Abro nano para la creación del index.js donde van a ir unos comandos
 nano index.js
 //Pongo esta configuración dentro del archivo
 
-Código:
+<img width="885" height="652" alt="image" src="https://github.com/user-attachments/assets/27d0b05a-8397-4eef-bc18-5646483d24e3" />
+
+<img width="886" height="467" alt="image" src="https://github.com/user-attachments/assets/7d84afcf-6293-424a-8ae5-b0961936005e" />
 
 Crear el Dockerfile (que le enseña a Docker cómo armar Node):
 //Crear carpeta para almacenar la información para armar el nodo
 nano Dockerfile
+<img width="558" height="306" alt="image" src="https://github.com/user-attachments/assets/97f59ad1-2fe4-4b18-94dd-ace4d4d37ae0" />
 
-Codigo:
+<img width="839" height="460" alt="image" src="https://github.com/user-attachments/assets/ff564d56-546d-497e-9aaa-e2188359536c" />
+
 Funcionamiento del Docker
 //Regresar a la Carpeta Principal
 cd ~/entorno-docker-completo
@@ -292,26 +302,43 @@ docker compose up -d
 //Comando que descarga lo que falta, arma todo y lo deja corriendo en el fondo
 (-d es para que nos devuelva la consola).
 
+<img width="884" height="398" alt="image" src="https://github.com/user-attachments/assets/d48c59b1-d039-4343-938d-bd42d0492ebc" />
+
 //Aparecen los contenedores ya corriendo adecuadamente después de
 descargar ejecutar este comando. También se descargaron un poco de cosas
 extras.
  Evidencias de funcionamiento De que si funciona
 //Estas son algunas capturas de que si funciona
-Tu web: http://localhost:
 
- Tu API Node: http://localhost:
-Código:
+Tu web: http://localhost:8080
+
+<img width="633" height="337" alt="image" src="https://github.com/user-attachments/assets/cf496c3c-299d-4852-a7d2-d95849c288f1" />
+
+ Tu API Node: http://localhost:3000
+
+<img width="557" height="297" alt="image" src="https://github.com/user-attachments/assets/ededc69f-4a14-468d-88be-41fda1887122" />
 
  Jupyter Lab: http://localhost:8888/lab?token=root
+
+<img width="554" height="296" alt="image" src="https://github.com/user-attachments/assets/c1caf4b5-3a0f-4329-9551-0a52dcf0393a" />
+
 Utilizando comandos útiles del docker en Linux
 docker ps // Mira quién está corriendo en este momento.
+<img width="631" height="365" alt="image" src="https://github.com/user-attachments/assets/e65aeefe-cd26-4d17-9d89-8c2f22121f93" />
 
 docker logs backend_api // Mira los mensajes de tu API.
 
-Código:
+<img width="885" height="216" alt="image" src="https://github.com/user-attachments/assets/8a3afc60-9d6c-43b0-8807-3f8f3e191581" />
 
 docker logs backend_ap // Reinicia un servicio rápido.
 
+<img width="884" height="207" alt="image" src="https://github.com/user-attachments/assets/5b376711-b114-4547-8084-920c8847e32a" />
+
 docker compose restart // Apaga y limpia todo.
 
+<img width="794" height="276" alt="image" src="https://github.com/user-attachments/assets/e9304552-8c3f-4e8d-ae79-79b210d4b842" />
+
 //Otra Evidencia del funcionamiento
+
+<img width="644" height="381" alt="image" src="https://github.com/user-attachments/assets/16e2d1c6-4fae-491d-8bce-a3aedaf69d5b" />
+
