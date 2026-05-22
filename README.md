@@ -221,10 +221,19 @@ nano .env
 
 
 POSTGRES_USER=andros_Q
+
+
 POSTGRES_PASSWORD=Raichu
+
+
 POSTGRES_DB=MyDataBase
+
+
 PGADMIN_DEFAULT_EMAIL=admin@midominio.com
+
+
 PGADMIN_DEFAULT_PASSWORD=adminpgadmin
+
 
 <img width="886" height="476" alt="image" src="https://github.com/user-attachments/assets/ea32d2be-2eb4-4ea1-ba8b-0354f96778ca" />
 
@@ -244,92 +253,226 @@ nano docker-compose.yml
 //Poner los comandos de la configuración
 
 
-versión: '3.8'
+version: '3.8'
 
-servicios:
-
-1. Un servidor para páginas web (Nginx)
-web_server:
-imagen: nginx:latest
-nombre_contenedor: servidor_web
-puertos:
+services:
 
 
-volúmenes "8080:80" :
-./web:/usr/share/nginx/html
-redes:
-mi_red_app
-reiniciar: siempre
-2. El cerebro de la aplicación (Node.js)
-api_node:
-build: ./api-node
-container_name: backend_api
-ports:
+  # 1. El Recepcionista (Nginx)
 
-Entorno "3000:3000"
-:
-DB_USER=${POSTGRES_USER}
-Código:
+  
+  web_server:
 
-DB_PASSWORD=${POSTGRES_PASSWORD}
-DB_HOST=db_postgres
-DB_NAME=${POSTGRES_DB}
-depende_de:
+  
+    image: nginx:latest
 
-redes db_postgres :
-mi_red_app
-3. Donde guardaremos la info (PostgreSQL)
-db_postgres:
-imagen: postgres:
-nombre_contenedor: base_datos_pg
-entorno:
-POSTGRES_USER: ${POSTGRES_USER}
-POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-POSTGRES_DB: ${POSTGRES_DB}
-puertos:
+    
+    container_name: servidor_web
+
+    
+    ports:
+
+    
+      - "8080:80"
+
+      
+    volumes:
+
+    
+      - ./web:/usr/share/nginx/html
+
+      
+    networks:
+
+    
+      - mi_red_app
+
+      
+    restart: always
 
 
-volúmenes "5432:5432" :
-pg_data:/var/lib/postgresql/data
-redes:
-mi_red_app
-reiniciar: siempre
-4. Para ver la base de datos visualmente (pgAdmin)
-pgadmin:
-imagen: dpage/pgadmin
-nombre_contenedor: administrador_pg
-entorno:
+  # 2. El Cerebro (Node.js)
 
-Código:
-PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-puertos:
+  
+  api_node:
 
-"5050:80"
-depende_de:
+  
+    build: ./api-node
 
-redes db_postgres :
-mi_red_app
-reiniciar: siempre
-5. Para jugar con datos y código (Jupyter Lab)
-jupyter:
-imagen: jupyter/base-notebook:latest
-nombre_contenedor: jupyter_lab
-puertos:
+    
+    container_name: backend_api
 
-Entorno "8888:8888"
-:
-JUPYTER_ENABLE_LAB=sí
-JUPYTER_TOKEN=root
-redes:
-mi_red_app
-reiniciar: siempre
-redes:
-mi_red_app:
-controlador: puente
+    
+    ports:
 
-volúmenes:
-pg_data:
+    
+      - "3000:3000"
+
+      
+    environment:
+
+    
+      - DB_USER=${POSTGRES_USER}
+
+      
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+
+      
+      - DB_HOST=db_postgres
+
+      
+      - DB_NAME=${POSTGRES_DB}
+
+      
+    depends_on:
+
+    
+      - db_postgres
+
+      
+    networks:
+
+
+    
+      - mi_red_app
+
+  # 3. La Bóveda (PostgreSQL)
+
+  
+  db_postgres:
+
+  
+    image: postgres:15
+
+    
+    container_name: base_datos_pg
+
+    
+    environment:
+
+    
+      POSTGRES_USER: ${POSTGRES_USER}
+
+      
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+      
+      POSTGRES_DB: ${POSTGRES_DB}
+
+      
+    ports:
+
+    
+      - "5432:5432"
+
+      
+    volumes:
+
+    
+      - pg_data:/var/lib/postgresql/data  # ¡Aquí está el Salvavidas!
+
+      
+    networks:
+
+    
+      - mi_red_app
+
+      
+    restart: always
+
+  # 4. Las Cámaras de Seguridad (pgAdmin)
+
+  
+  pgadmin:
+
+  
+    image: dpage/pgadmin4
+
+    
+    container_name: administrador_pg
+
+    
+    environment:
+
+    
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+
+      
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+
+      
+    ports:
+
+    
+      - "5050:80"
+
+
+    depends_on:
+
+    
+      - db_postgres
+
+      
+    networks:
+
+    
+      - mi_red_app
+
+      
+    restart: always
+
+  # 5. El Laboratorio (Jupyter Lab)
+
+  
+  jupyter:
+
+  
+    image: jupyter/base-notebook:latest
+
+    
+    container_name: jupyter_lab
+
+    
+    ports:
+
+    
+      - "8888:8888"
+
+      
+    environment:
+
+    
+      - JUPYTER_ENABLE_LAB=yes
+
+
+      - JUPYTER_TOKEN=root
+
+      
+    networks:
+
+    
+      - mi_red_app
+
+      
+    restart: always
+
+# El pasillo secreto
+
+
+networks:
+
+
+  mi_red_app:
+
+    driver: bridge
+
+# El disco duro indestructible
+
+
+volumes:
+
+
+  pg_data:
 
 
 <img width="886" height="461" alt="image" src="https://github.com/user-attachments/assets/5e8abbaa-d0f2-4275-af66-26b908f8307e" />
@@ -354,12 +497,22 @@ nano index.html
 
 
 <!DOCTYPE html>
+
+
 <html>
+
+    
 <head><title>Entorno Docker</title></head>
+
+
 <body>
+
     <h1>¡Hola! ¡Nginx funciona de maravilla en Docker!</h1>
     <p>Si lees esto, hiciste todo bien.</p>
+    
 </body>
+
+
 </html>
 
 
@@ -378,13 +531,29 @@ nano package.json
 
 
 {
+
+
 "name": "api-prueba",
+
+
 "version": "1.0.0",
+
+
 "main": "index.js",
+
+
 "dependencies": {
+
+
 "express": "^4.18.2",
+
+
 "pg": "^8.11.3"
+
+
 }
+
+
 }
 
 
