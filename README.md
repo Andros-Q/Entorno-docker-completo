@@ -86,6 +86,8 @@ o /etc/apt/keyrings/docker.gpg
 
 
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+
 <img width="884" height="159" alt="image" src="https://github.com/user-attachments/assets/cf523028-6b03-40c9-ae0b-b54dadb0bf62" />
 
 3. Añadimos el catálogo oficial de Docker a nuestro sistema
@@ -122,6 +124,8 @@ docker-compose-plugin
 
 
 <img width="743" height="296" alt="image" src="https://github.com/user-attachments/assets/51886046-3568-4cef-9f9c-a9b71961db76" />
+
+
 <img width="617" height="321" alt="image" src="https://github.com/user-attachments/assets/c06431f4-8ea2-490d-9329-159e09772625" />
 
 Tomamos Docker a mano
@@ -135,7 +139,7 @@ Revisamos que si prendio el Docker
 
 sudo service docker status
 
-Deberías ver algo como: * Docker se está ejecutando
+Deberías ver algo como: * Docker is running
 
 <img width="768" height="403" alt="image" src="https://github.com/user-attachments/assets/8222f6f3-7ada-456a-9f7b-d08d0f51e036" />
 
